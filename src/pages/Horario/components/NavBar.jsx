@@ -8,14 +8,21 @@ export default function CenteredTabs({
   brigadas,
   brigadaSeleccionada,
   setBrigadaSeleccionada,
-}) {
+}) {  
+
+  const [value,setvalue]=React.useState(false)
+
   const handleChange = (event, newValue) => {
-    setselectedbrigada(newValue);
+    setBrigadaSeleccionada(newValue)
+    setvalue(newValue);
+
+
   };
+
 
   return brigadas ? (
     <Box sx={{ width: "100%", bgcolor: "background.primary" }}>
-      <Tabs value={`${brigadaSeleccionada} `} onChange={setBrigadaSeleccionada} centered>
+      <Tabs value={value} onChange={handleChange} centered>
         {brigadas.map((brigada) => (
           <Tab label={brigada?.nombre} value={brigada?.nombre} key={brigada?.id} />
         ))}

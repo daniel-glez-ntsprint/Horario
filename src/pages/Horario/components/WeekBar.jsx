@@ -20,8 +20,8 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box sx={{ p: 3 }}> 
+          <Typography>{children} hola</Typography>
         </Box>
       )}
     </div>
@@ -41,12 +41,14 @@ function a11yProps(index) {
   };
 }
 
-export default function VerticalTabs() {
-  const [value, setValue] = React.useState(0);
+export default function VerticalTabs({ semanas,semanasSeleccionada,setSemanasSeleccionada}) {
+  const [value, setValue] = React.useState(2);
 
   const handleChange = (event, newValue) => {
+    setSemanasSeleccionada(newValue)
     setValue(newValue);
   };
+console.log(semanasSeleccionada)
 
   return (
     
@@ -66,57 +68,11 @@ export default function VerticalTabs() {
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: "divider" }}
       >
-        <Tab label="semana 1" {...a11yProps(0)} />
-        <Tab label="semana 2" {...a11yProps(1)} />
-        <Tab label="semana 3" {...a11yProps(2)} />
-        <Tab label="semana 4" {...a11yProps(3)} />
-        <Tab label="semana 5" {...a11yProps(4)} />
-        <Tab label="semana 6" {...a11yProps(5)} />
-        <Tab label="semana 7" {...a11yProps(6)} />
+      {semanas.map((semana)=>(
+        <Tab label= { semana?.semana } value={ semana?.semana }  key={semana?.id} {...a11yProps(0)} />
+     ))}
       </Tabs>
-      <TabPanel className="" value={value} index={0}>
-        Item One
-    
-          <Button>editar</Button>
-          <Button variant="text" color="primary">
-            eliminar
-          </Button>
- 
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-        <div>
-          <div className="w-full">
-            <button className="w-full">editar</button>
-          </div>
-          <div className="w-full">
-            <button>eliminar</button>
-          </div>
-        </div>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-        <div>
-          <div className="text-black flex items-center place-content-center">
-            <IconButton aria-label="">
-              <HiOutlinePlusCircle className="" />
-            </IconButton>
-          </div>
-          <button className="bg-blue-700">eliminar</button>
-        </div>
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
+     
     </Box>
   );
 }
